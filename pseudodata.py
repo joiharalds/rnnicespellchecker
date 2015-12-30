@@ -27,9 +27,10 @@ def main(args):
       except FileNotFoundError:
         print('No .json file was found, please use --derive to create one')
   if args.create:
+    #TODO: Receive path to datafiles as arguement as in args.derive
     inputfn = args.create
     if words:
-      writeanalysis(words,analysisfn)
+      createpseudodatafile(words,pseudofn,inputfn)
     else:
       try:
         with open(jsonfn,'r') as f:
