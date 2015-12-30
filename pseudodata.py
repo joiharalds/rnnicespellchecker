@@ -60,8 +60,8 @@ def createpseudodatafile(fn_to_deriv,inputfn,path):
   pseudodir = './pseudodata'
   if not os.path.exists(pseudodir):
     os.makedirs(pseudodir)
-  #Base name on first part of the name of input data file
-  pseudofn = inputfn.split('.')[0]+'.pseudo'
+  #Base name on the name of the input data file
+  pseudofn = 'pseudo_'+inputfn
   with open(pseudodir+'/'+pseudofn,'w') as pfhandle,\
       open(path+'/'+inputfn,'r',newline='') as ihandle:
     ireader = csv.reader(ihandle,delimiter=',',quoting=csv.QUOTE_MINIMAL,quotechar='"')
