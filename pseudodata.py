@@ -92,19 +92,24 @@ def getderivativesinfile(words,fn,path):
     reader = csv.reader(fhandle,delimiter=',',quoting=csv.QUOTE_MINIMAL,quotechar='"')
     #for row in itertools.islice(reader,0,5):
     for row in reader:
-      word = row[1]
-      derivative = row[0]
-      if word not in words:
-        #Word not seen before, add to dict
-        words[word] = {derivative:1}
-      elif derivative not in words[word]:
-        #Word seen at least once before but derivative for word not seen before,
-        #  add to subdict of word
-        words[word][derivative] = 1
-      else:
-        # Word and derivative both seen at least once before, count the occurence
-        derivativecount = words[word][derivative]
-        words[word][derivative] = derivativecount + 1
+      try:
+        word = row[1]
+        derivative = row[0]
+        if word not in words:
+          #Word not seen before, add to dict
+          words[word] = {derivative:1}
+        elif derivative not in words[word]:
+          #Word seen at least once before but derivative for word not seen before,
+          #  add to subdict of word
+          words[word][derivative] = 1
+        else:
+          # Word and derivative both seen at least once before, count the occurence
+          derivativecount = words[word][derivative]
+          words[word][derivative] = derivativecount + 1
+      except IndexError:
+        #IndexError probably created because some rows are empty so it is correct to
+        #  ignore them
+        continue
 
 def getfilenames(path='./'):
   """
